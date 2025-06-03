@@ -11,7 +11,7 @@ class MuscleGroup:
 
     user_id: Mapped[int] = mapped_column(ForeignKey("user.user_id"), nullable=True)
     group_name: Mapped[str] = mapped_column(primary_key=True)
-
+    active: Mapped[bool] = mapped_column(default=True)
 
 @reg.mapped_as_dataclass
 class User:
@@ -58,12 +58,8 @@ class Exercise:
     __tablename__ = "exercise"
 
     exercise_id: Mapped[int] = mapped_column(primary_key=True, init=False, autoincrement=True)
-    muscle_id: Mapped[int] = mapped_column(ForeignKey("muscle.muscle_id"), unique=True)
     user_id: Mapped[int] = mapped_column(
         ForeignKey("user.user_id"), unique=True, nullable=True
-    )
-    equipment_id: Mapped[int] = mapped_column(
-        ForeignKey("equipment.equipment_id"), unique=True, nullable=True
     )
     exercise_name: Mapped[str] = mapped_column(unique=True)
     description: Mapped[str]
